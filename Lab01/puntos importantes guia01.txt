@@ -1,0 +1,49 @@
+El sistema de enlace del modelo ASP.NET MVC asigna
+automáticamente los parámetros con nombre, de la cadena de consulta en la barra de direcciones,
+a los parámetros de su método.
+
+Quiere decir que los parametros listados en la URL con su valores se mapeon automaticamente al metodo especifico del controlador
+
+/HelloWorld/Welcome?nombre=Scott&numveces=4 
+nombre=Scott y numveces=4 se pasan como CADENAS DE CONSULTA
+
+
+Si la URL lleva el tercer parametro {parameters} hay un comportamiento extraño
+
+1. 1? Hace que el valor del parametro ID lo reciba
+
+Ejemplo:
+
+/1?&nombre=chabela
+
+-> Hola chabela ID 1
+
+2. /oscar?id=500
+
+-> da error
+
+3. /HelloWorld/Welcome?nombre=oscar&id=700
+Acá no está usando el tercer parametro {Parameters}
+
+
+
+* Al crear un controlodor se crea automaticamente una carpeta que guardar las vistas asociadas al controlador
+* Para que el controlador no esté devolviendo directamente HTML cambios el tipo de retorno por defecto del metodo accion Index (que es un string)
+por un ActionResult
+
+
+public ActionResult Index(){
+	return View();  //Views/Index.cshtml
+}
+
+* El metodo View va a la carpeta de Vistas y busca la vista creada con el nombre del metodo que esta devolviendo la vista, ejemplo
+
+Views/Index.cshtml
+
+
+** Plantilla de diseño son las que se comparten entre los diferentes vistas
+
+
+QUE ES UN CONTEXTO EN ENTITY FRAMEWORK
+
+
