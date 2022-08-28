@@ -1,0 +1,118 @@
+[] guia de laboratorio 02
+
+1. crear conexión a localDB - Crear una cadena de conexión y trabajar con LocalDB de
+SQL Server.
+
+
+automaticamente entity framework crea la BD y mapea la clase PeliculasDBContext a una tabla, usando la primera linea de connectionStrings!
+
+
+
+2. controlador que manejará los datos del modelo CRUD -- Acceso a los datos de su modelo desde un controlador
+(CRUD)
+esto hace referencia PeliculasController implica usar scalfolding apartir de un modelo, elegimos que queremos crear un crud apartir del modelo, automáticamente nos va a crear el controller con todos los metodos basicos para un crud al mismo tiempo nos va a crear una carpeta para manejar las vistas de ese controlador (una vista por metodo)
+
+¿que es un contexto de base de datos?
+
+que diferencia hay entre
+
+http://localhost:1234/peliculas/details/1
+
+http://localhost:xxxxx/peliculas/details?id=1
+
+
+Cuando desde un metodo de un controlador enviamos información a traves de argumentos la vista hace el match del tipo de objeto que se va a recibir utilzando la sentencia @model tipo.de.elemento.a.ser.mapeado
+
+por ejemplo: 
+
+
+
+EstudianteController.cs
+public void Imprimir(Estudiante estudiante){
+
+  return View(estuadiante) // el metodo View infiere que la información a ser pasada debe ser enviada a una vista de este controlador así Views/Estudiante/Imprimir.cshtml
+
+}
+
+
+Views/Estudiante/Imprimir.cshtml
+@model Laboratorio02.Models.Estudiante // con esto le estamos diciendo: cada vez que estemos llamando a @model es como si hubieramos hecho lo siguiente Estudiante estudiante = El parametro recibido a traves del controller
+
+
+
+LO MISMO PERO MAS RESUMIDO
+Esta directiva @model le permite acceder a la película que el controlador pasó a la vista utilizando
+un objeto Model fuertemente tipado.
+- uso, en el metodo del controlador Details si se encuentra una película con el id pasado, se pasa una instancia del modelo de película a la vista Details:
+
+* Buscar que son los HTML Helpers
+* Investigar la clase DBContext
+
+@Html.ActionLink("Editar", "Edit", new { id=item.ID }) 
+Sirve para pasar argumentos a la ruta
+ => /Peliculas/Details/1
+
+
+
+
+3. acceder a los datos almacenados en localDB - Trabajando con SQL Server LocalDB.
+
+
+ver la bd creada, la tabla y los datos // esto ya lo sabes hacer
+
+
+
+
+4. metodo de edicion del controlador y trabajar sobre la vista de edicion de pelicula -- Examinar los métodos de edición y la vista de edición
+
+hay varios comentarios en el archivo Models/Pelicula.cs
+
+HelperHtml
+
+
+ActionLink: facilita la generación dinámica de hipervínculos HTML que enlazan con métodos de acción en los controladores.
+
+CADENA DE CONSULTA -> /Peliculas/Edit?ID=3
+
+Investigar más sobre los HTMLHelpers
+
+
+
+5. procesamiento de solicitudes POST que utilizan los metodos que gestionan los objetos de peliculas -- Procesando la solicitud POST
+
+
+
+Cuando se invoca la URL /Peliculas/Edit/1 y damos click al botón Guardar
+invoca al metodo sobrecargado Edit con anotación HttpPost luego de ejecutar la logica de ese metodo
+se invoca inmediatamente el metodo Dispose para liberar la conexion de la BD (pero no hay llamada explicita en el metodo de Edit!!!!!)
+
+
+// el modelo binding va y verifica que lo que se ha enviado desde el formulario de EDICION vengan los parametros ( <input type = "text" name = "ID"> <input type = "text" name = "Titulo"> 
+// <input type = "text" name = "FechaLanzamiento">  <input type = "text" name = "Genero"> <input type = "text" name = "Precio"> )
+
+
+de donde diablos sacan el modelstate en el archivo /Controller/PeliculaController Metodo = Edit
+
+
+ // Si el modelstate no es valido entonces lo rederige a la misma vista Edit con los mismos datos del objeto que se quiere modificar
+
+ // diferencia entre RedirectionAction("Index")
+ // y View(pelicula) ?
+
+
+
+ // cuando se manda a llamar /Peliculas/Edit/1
+ 1. Manda a llamar al metodo de acción e inmediatamente seguido comienza a construir la vista HTML y la devuelve PERO en que parte está el llamado de la entidad a ser mostrada para ser editada??
+
+
+6. metodos de filtro y como implementarlos desde la vista index -- Método de Búsqueda
+
+la funcion con linq. del controlador Peliculas/Index.cs
+
+ peliculas = peliculas.Where(s => s.Titulo.Contains(buscarstring)); //busca parcial o palabra complete, no distingue minusculas de mayusculas
+
+@*al dropdownlist se le pasa el nombre de la propiedad que guardó la lista de genero en el controller usando el viewbag*@
+
+
+
+
