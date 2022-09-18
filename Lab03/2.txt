@@ -1,0 +1,3 @@
+Server=tcp:cv181237.database.windows.net,1433;Initial Catalog=mvcpeliculas;Persist Security Info=False;User ID=cv181237;Password=5e92ZKTCaBSaXFp;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+
+
